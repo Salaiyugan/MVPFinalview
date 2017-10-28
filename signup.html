@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+  	<meta charset="UTF-8">
+  	<title>Login Form</title> 
+  	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+			var response = angular.module('response', []);
+	
+			response.controller('responseControl',function($scope,$http) 
+			{
+								
+				$scope.submit=function(user,email,pwd)	{	
+				
+					var data = {
+							name: user,
+						    email: email,
+						    pwd: pwd,	
+							};
+							var url = "http://localhost:8080/AirBnB/web/user/add";
+							$http.post(url, data)
+							.then(function (data,Status) {
+								$scope.Status = "success";
+                alert(Login Success!!);
+							},function (data,Status) {
+								$scope.Status = "failure" ;
+							});
+						}
+						$scope.redirectIndex=function(){
+						window.location = "login.html";
+					}
+						});
+		</script>
+</head>
+
+<body ng-app="response" ng-controller="responseControl">
+  <div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<div>Air<span>BNB</span></div>
+		</div>
+		<br>
+		<div class="login">
+			<form>
+			<input type="text" placeholder="name"  ng-model="user" required><br>
+			<input type="E-mail" placeholder="E-mail"  ng-model="email" required><br>
+			<input type="password" placeholder="password"  ng-model="password" required><br>
+			<input type="button" value="Submit" ng-click=submit(user,email,password)>
+			</form>
+			<p>{{Status}}</p>
+			<input type="button" value="login" ng-click=redirectIndex()>
+		</div>
+
+</body>
+</html>
